@@ -771,3 +771,36 @@ const restaurants = [
 ];
 
 // your code here
+const table = document.querySelector('table');
+
+const dialog = document.querySelector('dialog');
+
+const button = document.createElement('button');
+button.innerText = 'close';
+
+button.addEventListener('click', () => {
+  dialog.close();
+});
+
+restaurants.sort((a, b) =>
+  a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+);
+
+for (let i of restaurants) {
+  let tr = document.createElement('tr');
+  tr.innerHTML = `<td>${i.name}</td> <td>${i.address}</td>`;
+
+  tr.addEventListener('click', () => {
+    for (let k of document.querySelectorAll('tr')) {
+      k.classList.remove('highlight');
+    }
+    tr.classList.add('highlight');
+
+    let innerhtml2 = `<p>${i.name}</p> <p>${i.address}</p> <p>${i.postalCode}</p> <p>${i.city}</p> <p>${i.phone}</p> <p>${i.company}</p>`;
+    dialog.innerHTML = innerhtml2;
+    dialog.appendChild(button);
+    dialog.showModal();
+  });
+
+  table.appendChild(tr);
+}
